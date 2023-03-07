@@ -5,7 +5,7 @@ import Balancer from 'react-wrap-balancer'
 const BalancerWrapper = (props: any) => <Balancer {...props} />
 
 export type Message = {
-  who: 'bot' | 'user' | undefined
+  who: 'assistant' | 'user' | undefined
   message?: string
 }
 
@@ -40,7 +40,7 @@ const convertNewLines = (text: string) =>
     </span>
   ))
 
-export function ChatLine({ who = 'bot', message }: Message) {
+export function ChatLine({ who = 'assistant', message }: Message) {
   if (!message) {
     return null
   }
@@ -49,7 +49,7 @@ export function ChatLine({ who = 'bot', message }: Message) {
   return (
     <div
       className={
-        who != 'bot' ? 'float-right clear-both' : 'float-left clear-both'
+        who != 'assistant' ? 'float-right clear-both' : 'float-left clear-both'
       }
     >
       <BalancerWrapper>
@@ -58,13 +58,13 @@ export function ChatLine({ who = 'bot', message }: Message) {
             <div className="flex-1 gap-4">
               <p className="font-large text-xxl text-gray-900">
                 <a href="#" className="hover:underline">
-                  {who == 'bot' ? 'AI' : 'You'}
+                  {who == 'assistant' ? 'AI' : 'You'}
                 </a>
               </p>
               <p
                 className={clsx(
                   'text ',
-                  who == 'bot' ? 'font-semibold font- ' : 'text-gray-400'
+                  who == 'assistant' ? 'font-semibold font- ' : 'text-gray-400'
                 )}
               >
                 {formatteMessage}

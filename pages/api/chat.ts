@@ -7,33 +7,15 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error('Missing Environment Variable OPENAI_API_KEY')
 }
 
-const botName = 'AI'
-const userName = 'News reporter' // TODO: move to ENV var
-const firstMessge = initialMessages[0].message
-
 // @TODO: unit test this. good case for unit testing
-const generatePromptFromMessages = (messages: Message[]) => {
-  console.log('== INITIAL messages ==', messages)
-
-  let prompt = ''
-
-  // add first user message to prompt
-  prompt += messages[1].message
-
-  // remove first conversaiton (first 2 messages)
-  const messagesWithoutFirstConvo = messages.slice(2)
-  console.log(' == messagesWithoutFirstConvo', messagesWithoutFirstConvo)
-
-  // early return if no messages
-  if (messagesWithoutFirstConvo.length == 0) {
-    return prompt
-  }
-
-  messagesWithoutFirstConvo.forEach((message: Message) => {
-    const name = message.who === 'user' ? userName : botName
-    prompt += `\n${name}: ${message.message}`
+const generatePromptFromMessages = (messages: Message[], firstMessage: string) => {
+  const messagesList: Object[] = []
+  messagesList.push({ "role": "assistant", "content": firstMessage })
+  messages.forEach((message) => {
+    const messageObj = { "role": message.who, "content": message.message  }
+    messagesList.push(messageObj)
   })
-  return prompt
+  return messagesList
 }
 
 export const config = {
@@ -45,12 +27,12 @@ export default async function handler(req: NextRequest) {
   const body = await req.json()
 
   // const messages = req.body.messages
-  const messagesPrompt = generatePromptFromMessages(body.messages)
-  const promt = `I am Friendly AI Assistant. \n\nThis is the conversation between AI Bot and a news reporter.\n\n${botName}: ${firstMessge}\n${userName}: ${messagesPrompt}\n${botName}: `
+  const firstPrompt = `私は人の悩みを解決するために開発されたAI心理カウンセラーです。ここでの会話は人の悩みを解決するために行われます。`
+  const messagesPrompt = generatePromptFromMessages(body.messages, firstPrompt)
 
   const payload = {
     model: 'gpt-3.5-turbo',
-    messages: [{ "role": "user", "content": promt }],
+    messages: messagesPrompt,
   }
 
   const requestHeaders: Record<string, string> = {
