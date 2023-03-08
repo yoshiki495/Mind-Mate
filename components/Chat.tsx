@@ -9,7 +9,7 @@ const COOKIE_NAME = 'nextjs-example-ai-chat-gpt3'
 export const initialMessages: Message[] = [
   {
     who: 'assistant',
-    message: '悩み事がありますか？お気軽に相談してくださいね。',
+    message: 'おかえりなさい。\nご機嫌はいかがですか？',
   },
 ]
 
@@ -98,16 +98,39 @@ export function Chat() {
 
       {loading && <LoadingChatLine />}
 
-      {messages.length < 2 && (
-        <span className="mx-auto flex flex-grow text-gray-600 clear-both">
-          Type a message to start the conversation
-        </span>
-      )}
-      <InputMessage
-        input={input}
-        setInput={setInput}
-        sendMessage={sendMessage}
-      />
+      {messages.length < 2 ? (
+        <div className="justify-end space-x-2 mt-6 flex clear-both">
+          <div className="space-y-2">
+            <button
+              type="button"
+              className="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] mr-4 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+              data-te-ripple-init
+              onClick={() => sendMessage("悪いです。")}>
+              悪いです。
+            </button>
+            <button
+              type="button"
+              className="inline-block rounded-full border-2 border-success px-6 pt-2 pb-[6px] mr-4 text-xs font-medium uppercase leading-normal text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+              data-te-ripple-init
+              onClick={() => sendMessage("普通です。")}>
+              普通です。
+            </button>
+            <button
+              type="button"
+              className="inline-block rounded-full border-2 border-danger px-6 pt-2 pb-[6px] mr-4 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+              data-te-ripple-init
+              onClick={() => sendMessage("良いです。")}>
+              良いです。
+            </button>
+          </div>
+        </div>
+      ) : 
+        <InputMessage
+          input={input}
+          setInput={setInput}
+          sendMessage={sendMessage}
+        />
+      } 
     </div>
   )
 }

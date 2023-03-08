@@ -35,6 +35,8 @@ export default async function handler(req: NextRequest) {
     messages: messagesPrompt,
   }
 
+  console.log(payload)
+
   const requestHeaders: Record<string, string> = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,

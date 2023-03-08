@@ -15,7 +15,8 @@
     "react": "latest",
     "react-cookie": "^4.1.1",
     "react-dom": "latest",
-    "react-wrap-balancer": "^0.1.5"
+    "react-wrap-balancer": "^0.1.5",
+    "tw-elements": "^1.0.0-beta1"
   },
   "devDependencies": {
     "@types/node": "^17",
