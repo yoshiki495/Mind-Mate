@@ -6,5 +6,5 @@ module.exports = {
     './node_modules/@vercel/examples-ui/**/*.js',
     "./node_modules/tw-elements/dist/js/**/*.js",
   ],
-  plugins: [require("tw-elements/dist/plugin")]
+  plugins: [require("tw-elements/dist/plugin")],
 }
